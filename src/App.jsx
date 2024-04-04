@@ -1,9 +1,9 @@
-import { ConnectKitProvider } from 'connectkit'
-import { Toaster } from 'react-hot-toast'
-import { WagmiConfig } from 'wagmi'
-import { AppLayout } from './components/ui/layouts'
-import { config } from './config/wagmi'
-import { Home } from './pages'
+import { AppLayout } from "./components/ui/layouts";
+import { Home } from "./pages";
+import { WagmiConfig } from "wagmi";
+import { ConnectKitProvider } from "connectkit";
+import { config } from "./config/wagmi";
+import { Toaster } from "react-hot-toast"
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         </AppLayout>
       </ConnectKitProvider>
     </WagmiConfig>
-  )
+  );
 }
 
-export default App
+export default App;
