@@ -1,11 +1,6 @@
-export { default as BurnTokensForm } from './BurnTokensForm'
-export { default as Footer } from './Footer'
-export { default as Header } from './Header'
-export { default as MintTokensForm } from './MintTokensForm'
-export { default as Owner } from './Owner'
-export { default as TokenBalance } from './TokenBalance'
-export { default as TokenInfo } from './TokenInfo'
-export { default as TokenInfoItem } from './TokenInfoItem'
-export { default as TokenInfoSkeleton } from './TokenInfoSkeleton'
-export { default as TotalSupply } from './TotalSupply'
-export { default as TransferTokensForm } from './TransferTokensForm'
+export { default as Button } from "./Button";
+export { default as ErrorInfo } from "./ErrorInfo";
+export { default as LoadingSpinner } from "./LoadingSpinner";
+export { default as TextInput } from "./TextInput";
+export { default as Title } from "./Title";
+export { default as BurnTokensForm } from "./ui/BurnTokensForm"
