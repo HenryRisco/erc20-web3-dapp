@@ -75,12 +75,12 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
    ```js
    /** @type {import('tailwindcss').Config} */
    export default {
-     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
      theme: {
-       extend: {}
+       extend: {},
      },
-     plugins: []
-   }
+     plugins: [],
+   };
    ```
 
 3. Añadimos las directivas de tailwind en nuestro fichero index.css
@@ -100,7 +100,7 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
 
    @layer base {
      html {
-       font-family: 'Roboto', system-ui, sans-serif;
+       font-family: "Roboto", system-ui, sans-serif;
        background-color: #f9fafb;
      }
    }
@@ -121,11 +121,21 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
      return (
        <header className="py-2 px-3 sm:py-4 sm:px-8 flex justify-between items-center bg-white border-b shadow-xs">
          {/* Logo para version mobile */}
-         <img src="/blockmaker-small-logo.png" alt="blockmaker-logo" width={47} className="sm:hidden" />
+         <img
+           src="/blockmaker-small-logo.png"
+           alt="blockmaker-logo"
+           width={47}
+           className="sm:hidden"
+         />
          {/* Logo para version desktop */}
-         <img src="/blockmaker-full-logo.png" alt="blockmaker-logo" width={300} className="hidden sm:flex" />
+         <img
+           src="/blockmaker-full-logo.png"
+           alt="blockmaker-logo"
+           width={300}
+           className="hidden sm:flex"
+         />
        </header>
-     )
+     );
    }
    ```
 
@@ -137,9 +147,11 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
   export default function Footer() {
     return (
       <footer className="py-4 px-3 sm:p-8 flex justify-center bg-white border-t shadow-xs">
-        <p>Derechos de autor &copy; {new Date().getFullYear()} Blockmaker Academy</p>
+        <p>
+          Derechos de autor &copy; {new Date().getFullYear()} Blockmaker Academy
+        </p>
       </footer>
-    )
+    );
   }
   ```
 
@@ -149,10 +161,10 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
 - Creamos un componente `AppLayout` que contiene el diseño principal de nuestra app, el Header y el Footer.
 
   ```jsx
-  import PropTypes from 'prop-types'
-  import React from 'react'
-  import Footer from '../../Footer'
-  import Header from '../../Header'
+  import PropTypes from "prop-types";
+  import React from "react";
+  import Footer from "../../Footer";
+  import Header from "../../Header";
 
   export default function AppLayout({ children }) {
     return (
@@ -161,18 +173,18 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
         <main className="mx-auto min-h-[85vh]">{children}</main>
         <Footer />
       </React.Fragment>
-    )
+    );
   }
 
   AppLayout.propTypes = {
-    children: PropTypes.node.isRequired
-  }
+    children: PropTypes.node.isRequired,
+  };
   ```
 
   Añadimos un fichero index.js para exportar directamente el componente layout.
 
   ```js
-  export { default as AppLayout } from './AppLayout'
+  export { default as AppLayout } from "./AppLayout";
   ```
 
 ### Componente página Home
@@ -186,14 +198,14 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
       <div>
         <h1>Esta es la página principal</h1>
       </div>
-    )
+    );
   }
   ```
 
 - Creamos un fichero index.js para exportar todos los componentes página directamente, en este caso, solo Home:
 
   ```js
-  export { default as Home } from './Home'
+  export { default as Home } from "./Home";
   ```
 
 ### Integrando AppLayout y Home
@@ -201,18 +213,18 @@ Sigue estos pasos para configurar un nuevo proyecto de React con Vite:
 - Actualizamos nuestro componente `App` añadiendo nuestro componente `AppLayout` y `Home`.
 
   ```jsx
-  import { AppLayout } from './components/ui/layouts'
-  import { Home } from './pages'
+  import { AppLayout } from "./components/ui/layouts";
+  import { Home } from "./pages";
 
   function App() {
     return (
       <AppLayout>
         <Home />
       </AppLayout>
-    )
+    );
   }
 
-  export default App
+  export default App;
   ```
 
 - Comprobamos que todo funciona correctamente, que la app funciona bien y se aplican correctamente los estilos de tailwind.
@@ -225,15 +237,14 @@ Documentación oficial: https://docs.family.co/connectkit/getting-started
 
 Nota: Debido a una reciente y significativa actualización que modifica sustancialmente la configuración inicial, se deberá consultar la documentación de versiones anteriores:
 
-  - Documentación oficial version 1.5 ConnectKit: https://web.archive.org/web/20230929142557/https://docs.family.co/connectkit/getting-started
-  - Documentación oficial version anterior Wagmi: https://0.6.x.wagmi.sh/react/getting-started
+- Documentación oficial version 1.5 ConnectKit: https://web.archive.org/web/20230929142557/https://docs.family.co/connectkit/getting-started
+- Documentación oficial version anterior Wagmi: https://0.6.x.wagmi.sh/react/getting-started
 
 1. **Instalación de connectkit y sus dependencias**
 
    ```bash
    npm install connectkit@1.5.3 viem@1.20.0 wagmi@1.4.12
    ```
-   
 
 2. **Configuración de las API Keys (si aún no tienes ninguna).**
 
@@ -261,45 +272,46 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
 
    ```js
    // Archivo wagmi.js
-   import { getDefaultConfig } from 'connectkit'
-   import { createConfig } from 'wagmi'
-   import { sepolia } from 'wagmi/chains'
+   import { getDefaultConfig } from "connectkit";
+   import { createConfig } from "wagmi";
+   import { sepolia } from "wagmi/chains";
 
    export const config = createConfig(
      getDefaultConfig({
        // Importamos la variable de entorno con import.meta.env
        alchemyId: import.meta.env.VITE_ALCHEMY_ID,
        walletConnectProjectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-       appName: 'Blockmaker ERC20 DApp',
+       appName: "Blockmaker ERC20 DApp",
        // Configuramos la chain
-       chains: [sepolia]
+       chains: [sepolia],
      })
-   )
+   );
 
-   export default config
+   export default config;
    ```
 
 5. **Importamos la configuración en nuestro componente APP y lo envolvemos con los componentes proveedores de Wagmi y ConnectKit.**
 
    ```jsx
-   import { WagmiConfig } from 'wagmi'
-   import { ConnectKitProvider } from 'connectkit'
-   import { config } from './config/wagmi'
+   import { WagmiConfig } from "wagmi";
+   import { ConnectKitProvider } from "connectkit";
+   import { config } from "./config/wagmi";
 
    function App() {
      return (
        <WagmiConfig config={config}>
-         // Lo ponemos en modo light ya que construiremos la aplicación en modo claro
+         // Lo ponemos en modo light ya que construiremos la aplicación en modo
+         claro
          <ConnectKitProvider mode="light">
            <AppLayout>
              <Home />
            </AppLayout>
          </ConnectKitProvider>
        </WagmiConfig>
-     )
+     );
    }
 
-   export default App
+   export default App;
    ```
 
 ## Actualización del Componente Header
@@ -307,19 +319,29 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
 1. **Añadimos el botón de ConnectKit para conectar la wallet.**
 
    ```jsx
-   import { ConnectKitButton } from 'connectkit'
+   import { ConnectKitButton } from "connectkit";
 
    export default function Header() {
      return (
        <header className="py-2 px-3 sm:py-4 sm:px-8 flex justify-between items-center bg-white border-b shadow-xs">
          {/* Logo para version mobile */}
-         <img src="/blockmaker-small-logo.png" alt="blockmaker-logo" width={47} className="sm:hidden" />
+         <img
+           src="/blockmaker-small-logo.png"
+           alt="blockmaker-logo"
+           width={47}
+           className="sm:hidden"
+         />
          {/* Logo para version desktop */}
-         <img src="/blockmaker-full-logo.png" alt="blockmaker-logo" width={300} className="hidden sm:flex" />
+         <img
+           src="/blockmaker-full-logo.png"
+           alt="blockmaker-logo"
+           width={300}
+           className="hidden sm:flex"
+         />
          {/* Botton de conexion wallet con prop showBalance para mostrar balance cuenta */}
          <ConnectKitButton showBalance />
        </header>
-     )
+     );
    }
    ```
 
@@ -338,7 +360,7 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
 2. **Creamos el componente `LoadingSpinner` para mostrarlo durante las cargas:**
 
    ```jsx
-   import PropTypes from 'prop-types'
+   import PropTypes from "prop-types";
 
    export default function LoadingSpinner({ className }) {
      return (
@@ -361,12 +383,12 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
          </svg>
          <span className="sr-only">Loading...</span>
        </div>
-     )
+     );
    }
 
    LoadingSpinner.propTypes = {
-     className: PropTypes.string
-   }
+     className: PropTypes.string,
+   };
    ```
 
 3. **Creamos el componente `Botón`:**
@@ -375,10 +397,16 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
 - Añadimos la propiedad `isLoading` y el componente `LoadingSpinner` para mostrar el estado de carga en el botón.
 
   ```jsx
-  import PropTypes from 'prop-types'
-  import LoadingSpinner from './LoadingSpinner'
+  import PropTypes from "prop-types";
+  import LoadingSpinner from "./LoadingSpinner";
 
-  export default function Button({ type = 'button', onClick, disabled, isLoading, children }) {
+  export default function Button({
+    type = "button",
+    onClick,
+    disabled,
+    isLoading,
+    children,
+  }) {
     return (
       <button
         type={type}
@@ -391,23 +419,23 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
           {children}
         </span>
       </button>
-    )
+    );
   }
 
   Button.propTypes = {
-    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+    type: PropTypes.oneOf(["button", "submit", "reset"]),
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
-    children: PropTypes.node.isRequired
-  }
+    children: PropTypes.node.isRequired,
+  };
   ```
 
 4. **Creamos el componente `ErrorInfo` para mostrar mensajes de error con un ícono.**
 
    ```jsx
-   import { MdInfoOutline } from 'react-icons/md'
-   import PropTypes from 'prop-types'
+   import { MdInfoOutline } from "react-icons/md";
+   import PropTypes from "prop-types";
 
    export default function ErrorInfo({ message }) {
      return (
@@ -415,20 +443,26 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
          <MdInfoOutline className="text-red-500" />
          <p className="text-xs text-red-500">{message}</p>
        </div>
-     )
+     );
    }
 
    ErrorInfo.propTypes = {
-     message: PropTypes.string.isRequired
-   }
+     message: PropTypes.string.isRequired,
+   };
    ```
 
 5. **Creamos el componente `TextInput`:**
 
    ```jsx
-   import PropTypes from 'prop-types'
+   import PropTypes from "prop-types";
 
-   export default function TextInput({ type, onChange, value, placeholder, disabled }) {
+   export default function TextInput({
+     type,
+     onChange,
+     value,
+     placeholder,
+     disabled,
+   }) {
      return (
        <input
          type={type}
@@ -438,40 +472,44 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
          disabled={disabled}
          className="border border-gray-300 rounded-md w-full px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:cursor-not-allowed"
        />
-     )
+     );
    }
 
    TextInput.propTypes = {
-     type: PropTypes.oneOf(['text', 'number', 'password']),
+     type: PropTypes.oneOf(["text", "number", "password"]),
      onChange: PropTypes.func,
      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
      placeholder: PropTypes.string,
-     disabled: PropTypes.bool
-   }
+     disabled: PropTypes.bool,
+   };
    ```
 
 6. **Creamos el componente `Title`:**
 
    ```jsx
-   import PropTypes from 'prop-types'
+   import PropTypes from "prop-types";
 
    export default function Title({ children }) {
-     return <h3 className="font-bold text-lg mb-2 w-fit text-slate-700">{children}</h3>
+     return (
+       <h3 className="font-bold text-lg mb-2 w-fit text-slate-700">
+         {children}
+       </h3>
+     );
    }
 
    Title.propTypes = {
-     children: PropTypes.node.isRequired
-   }
+     children: PropTypes.node.isRequired,
+   };
    ```
 
 7. **Creamos un fichero `index.js` dentro de la carpeta `components` para exportar todos los componentes directamente:**
 
    ```js
-   export { default as Button } from './Button'
-   export { default as ErrorInfo } from './ErrorInfo'
-   export { default as LoadingSpinner } from './LoadingSpinner'
-   export { default as TextInput } from './TextInput'
-   export { default as Title } from './Title'
+   export { default as Button } from "./Button";
+   export { default as ErrorInfo } from "./ErrorInfo";
+   export { default as LoadingSpinner } from "./LoadingSpinner";
+   export { default as TextInput } from "./TextInput";
+   export { default as Title } from "./Title";
    ```
 
 ## Instalación de la librería react-hot-toast
@@ -485,19 +523,19 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
    ```bash
    npm install react-hot-toast
    ```
-
+    npm install react-hot-toast
 2. **Configuración de la librería.**
 
 - Añadimos el componente `Toaster` en nuestro componente App.
 - Más adelante veremos cómo usar los `toast` para mostrar las notificaciones.
 
   ```jsx
-  import { ConnectKitProvider } from 'connectkit'
-  import { Toaster } from 'react-hot-toast'
-  import { WagmiConfig } from 'wagmi'
-  import { AppLayout } from './components/ui/layouts'
-  import { config } from './config/wagmi'
-  import { Home } from './pages'
+  import { ConnectKitProvider } from "connectkit";
+  import { Toaster } from "react-hot-toast";
+  import { WagmiConfig } from "wagmi";
+  import { AppLayout } from "./components/ui/layouts";
+  import { config } from "./config/wagmi";
+  import { Home } from "./pages";
 
   function App() {
     return (
@@ -509,10 +547,10 @@ Nota: Debido a una reciente y significativa actualización que modifica sustanci
           </AppLayout>
         </ConnectKitProvider>
       </WagmiConfig>
-    )
+    );
   }
 
-  export default App
+  export default App;
   ```
 
 # Creación de componentes web3
@@ -544,314 +582,409 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
     ```js
     export const blockmakerTokenABI = [
       {
-        inputs: [{ internalType: 'address', name: 'initialOwner', type: 'address' }],
-        stateMutability: 'nonpayable',
-        type: 'constructor'
+        inputs: [
+          { internalType: "address", name: "initialOwner", type: "address" },
+        ],
+        stateMutability: "nonpayable",
+        type: "constructor",
       },
-      { inputs: [], name: 'ECDSAInvalidSignature', type: 'error' },
+      { inputs: [], name: "ECDSAInvalidSignature", type: "error" },
       {
-        inputs: [{ internalType: 'uint256', name: 'length', type: 'uint256' }],
-        name: 'ECDSAInvalidSignatureLength',
-        type: 'error'
+        inputs: [{ internalType: "uint256", name: "length", type: "uint256" }],
+        name: "ECDSAInvalidSignatureLength",
+        type: "error",
       },
       {
-        inputs: [{ internalType: 'bytes32', name: 's', type: 'bytes32' }],
-        name: 'ECDSAInvalidSignatureS',
-        type: 'error'
+        inputs: [{ internalType: "bytes32", name: "s", type: "bytes32" }],
+        name: "ECDSAInvalidSignatureS",
+        type: "error",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'spender', type: 'address' },
-          { internalType: 'uint256', name: 'allowance', type: 'uint256' },
-          { internalType: 'uint256', name: 'needed', type: 'uint256' }
+          { internalType: "address", name: "spender", type: "address" },
+          { internalType: "uint256", name: "allowance", type: "uint256" },
+          { internalType: "uint256", name: "needed", type: "uint256" },
         ],
-        name: 'ERC20InsufficientAllowance',
-        type: 'error'
+        name: "ERC20InsufficientAllowance",
+        type: "error",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'sender', type: 'address' },
-          { internalType: 'uint256', name: 'balance', type: 'uint256' },
-          { internalType: 'uint256', name: 'needed', type: 'uint256' }
+          { internalType: "address", name: "sender", type: "address" },
+          { internalType: "uint256", name: "balance", type: "uint256" },
+          { internalType: "uint256", name: "needed", type: "uint256" },
         ],
-        name: 'ERC20InsufficientBalance',
-        type: 'error'
-      },
-      {
-        inputs: [{ internalType: 'address', name: 'approver', type: 'address' }],
-        name: 'ERC20InvalidApprover',
-        type: 'error'
-      },
-      {
-        inputs: [{ internalType: 'address', name: 'receiver', type: 'address' }],
-        name: 'ERC20InvalidReceiver',
-        type: 'error'
-      },
-      {
-        inputs: [{ internalType: 'address', name: 'sender', type: 'address' }],
-        name: 'ERC20InvalidSender',
-        type: 'error'
-      },
-      {
-        inputs: [{ internalType: 'address', name: 'spender', type: 'address' }],
-        name: 'ERC20InvalidSpender',
-        type: 'error'
-      },
-      {
-        inputs: [{ internalType: 'uint256', name: 'deadline', type: 'uint256' }],
-        name: 'ERC2612ExpiredSignature',
-        type: 'error'
+        name: "ERC20InsufficientBalance",
+        type: "error",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'signer', type: 'address' },
-          { internalType: 'address', name: 'owner', type: 'address' }
+          { internalType: "address", name: "approver", type: "address" },
         ],
-        name: 'ERC2612InvalidSigner',
-        type: 'error'
+        name: "ERC20InvalidApprover",
+        type: "error",
       },
-      { inputs: [], name: 'EnforcedPause', type: 'error' },
-      { inputs: [], name: 'ExpectedPause', type: 'error' },
       {
         inputs: [
-          { internalType: 'address', name: 'account', type: 'address' },
-          { internalType: 'uint256', name: 'currentNonce', type: 'uint256' }
+          { internalType: "address", name: "receiver", type: "address" },
         ],
-        name: 'InvalidAccountNonce',
-        type: 'error'
-      },
-      { inputs: [], name: 'InvalidShortString', type: 'error' },
-      {
-        inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
-        name: 'OwnableInvalidOwner',
-        type: 'error'
+        name: "ERC20InvalidReceiver",
+        type: "error",
       },
       {
-        inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
-        name: 'OwnableUnauthorizedAccount',
-        type: 'error'
+        inputs: [{ internalType: "address", name: "sender", type: "address" }],
+        name: "ERC20InvalidSender",
+        type: "error",
       },
-      { inputs: [{ internalType: 'string', name: 'str', type: 'string' }], name: 'StringTooLong', type: 'error' },
       {
-        anonymous: false,
+        inputs: [{ internalType: "address", name: "spender", type: "address" }],
+        name: "ERC20InvalidSpender",
+        type: "error",
+      },
+      {
         inputs: [
-          { indexed: true, internalType: 'address', name: 'owner', type: 'address' },
-          { indexed: true, internalType: 'address', name: 'spender', type: 'address' },
-          { indexed: false, internalType: 'uint256', name: 'value', type: 'uint256' }
+          { internalType: "uint256", name: "deadline", type: "uint256" },
         ],
-        name: 'Approval',
-        type: 'event'
+        name: "ERC2612ExpiredSignature",
+        type: "error",
       },
-      { anonymous: false, inputs: [], name: 'EIP712DomainChanged', type: 'event' },
       {
-        anonymous: false,
         inputs: [
-          { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
-          { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
+          { internalType: "address", name: "signer", type: "address" },
+          { internalType: "address", name: "owner", type: "address" },
         ],
-        name: 'OwnershipTransferred',
-        type: 'event'
+        name: "ERC2612InvalidSigner",
+        type: "error",
+      },
+      { inputs: [], name: "EnforcedPause", type: "error" },
+      { inputs: [], name: "ExpectedPause", type: "error" },
+      {
+        inputs: [
+          { internalType: "address", name: "account", type: "address" },
+          { internalType: "uint256", name: "currentNonce", type: "uint256" },
+        ],
+        name: "InvalidAccountNonce",
+        type: "error",
+      },
+      { inputs: [], name: "InvalidShortString", type: "error" },
+      {
+        inputs: [{ internalType: "address", name: "owner", type: "address" }],
+        name: "OwnableInvalidOwner",
+        type: "error",
       },
       {
-        anonymous: false,
-        inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
-        name: 'Paused',
-        type: 'event'
+        inputs: [{ internalType: "address", name: "account", type: "address" }],
+        name: "OwnableUnauthorizedAccount",
+        type: "error",
+      },
+      {
+        inputs: [{ internalType: "string", name: "str", type: "string" }],
+        name: "StringTooLong",
+        type: "error",
       },
       {
         anonymous: false,
         inputs: [
-          { indexed: true, internalType: 'address', name: 'from', type: 'address' },
-          { indexed: true, internalType: 'address', name: 'to', type: 'address' },
-          { indexed: false, internalType: 'uint256', name: 'value', type: 'uint256' }
+          {
+            indexed: true,
+            internalType: "address",
+            name: "owner",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "address",
+            name: "spender",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "value",
+            type: "uint256",
+          },
         ],
-        name: 'Transfer',
-        type: 'event'
+        name: "Approval",
+        type: "event",
       },
       {
         anonymous: false,
-        inputs: [{ indexed: false, internalType: 'address', name: 'account', type: 'address' }],
-        name: 'Unpaused',
-        type: 'event'
+        inputs: [],
+        name: "EIP712DomainChanged",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "previousOwner",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "address",
+            name: "newOwner",
+            type: "address",
+          },
+        ],
+        name: "OwnershipTransferred",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "address",
+            name: "account",
+            type: "address",
+          },
+        ],
+        name: "Paused",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "from",
+            type: "address",
+          },
+          {
+            indexed: true,
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "value",
+            type: "uint256",
+          },
+        ],
+        name: "Transfer",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: "address",
+            name: "account",
+            type: "address",
+          },
+        ],
+        name: "Unpaused",
+        type: "event",
       },
       {
         inputs: [],
-        name: 'DOMAIN_SEPARATOR',
-        outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "DOMAIN_SEPARATOR",
+        outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'owner', type: 'address' },
-          { internalType: 'address', name: 'spender', type: 'address' }
+          { internalType: "address", name: "owner", type: "address" },
+          { internalType: "address", name: "spender", type: "address" },
         ],
-        name: 'allowance',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "allowance",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'spender', type: 'address' },
-          { internalType: 'uint256', name: 'value', type: 'uint256' }
+          { internalType: "address", name: "spender", type: "address" },
+          { internalType: "uint256", name: "value", type: "uint256" },
         ],
-        name: 'approve',
-        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-        stateMutability: 'nonpayable',
-        type: 'function'
+        name: "approve",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "nonpayable",
+        type: "function",
       },
       {
-        inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
-        name: 'balanceOf',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-        stateMutability: 'view',
-        type: 'function'
+        inputs: [{ internalType: "address", name: "account", type: "address" }],
+        name: "balanceOf",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
-        inputs: [{ internalType: 'uint256', name: 'value', type: 'uint256' }],
-        name: 'burn',
+        inputs: [{ internalType: "uint256", name: "value", type: "uint256" }],
+        name: "burn",
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
+        stateMutability: "nonpayable",
+        type: "function",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'account', type: 'address' },
-          { internalType: 'uint256', name: 'value', type: 'uint256' }
+          { internalType: "address", name: "account", type: "address" },
+          { internalType: "uint256", name: "value", type: "uint256" },
         ],
-        name: 'burnFrom',
+        name: "burnFrom",
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
+        stateMutability: "nonpayable",
+        type: "function",
       },
       {
         inputs: [],
-        name: 'decimals',
-        outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "decimals",
+        outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [],
-        name: 'eip712Domain',
+        name: "eip712Domain",
         outputs: [
-          { internalType: 'bytes1', name: 'fields', type: 'bytes1' },
-          { internalType: 'string', name: 'name', type: 'string' },
-          { internalType: 'string', name: 'version', type: 'string' },
-          { internalType: 'uint256', name: 'chainId', type: 'uint256' },
-          { internalType: 'address', name: 'verifyingContract', type: 'address' },
-          { internalType: 'bytes32', name: 'salt', type: 'bytes32' },
-          { internalType: 'uint256[]', name: 'extensions', type: 'uint256[]' }
+          { internalType: "bytes1", name: "fields", type: "bytes1" },
+          { internalType: "string", name: "name", type: "string" },
+          { internalType: "string", name: "version", type: "string" },
+          { internalType: "uint256", name: "chainId", type: "uint256" },
+          {
+            internalType: "address",
+            name: "verifyingContract",
+            type: "address",
+          },
+          { internalType: "bytes32", name: "salt", type: "bytes32" },
+          { internalType: "uint256[]", name: "extensions", type: "uint256[]" },
         ],
-        stateMutability: 'view',
-        type: 'function'
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'to', type: 'address' },
-          { internalType: 'uint256', name: 'amount', type: 'uint256' }
+          { internalType: "address", name: "to", type: "address" },
+          { internalType: "uint256", name: "amount", type: "uint256" },
         ],
-        name: 'mint',
+        name: "mint",
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
+        stateMutability: "nonpayable",
+        type: "function",
       },
       {
         inputs: [],
-        name: 'name',
-        outputs: [{ internalType: 'string', name: '', type: 'string' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "name",
+        outputs: [{ internalType: "string", name: "", type: "string" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
-        inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
-        name: 'nonces',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-        stateMutability: 'view',
-        type: 'function'
+        inputs: [{ internalType: "address", name: "owner", type: "address" }],
+        name: "nonces",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [],
-        name: 'owner',
-        outputs: [{ internalType: 'address', name: '', type: 'address' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "owner",
+        outputs: [{ internalType: "address", name: "", type: "address" }],
+        stateMutability: "view",
+        type: "function",
       },
-      { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
       {
         inputs: [],
-        name: 'paused',
-        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-        stateMutability: 'view',
-        type: 'function'
-      },
-      {
-        inputs: [
-          { internalType: 'address', name: 'owner', type: 'address' },
-          { internalType: 'address', name: 'spender', type: 'address' },
-          { internalType: 'uint256', name: 'value', type: 'uint256' },
-          { internalType: 'uint256', name: 'deadline', type: 'uint256' },
-          { internalType: 'uint8', name: 'v', type: 'uint8' },
-          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-          { internalType: 'bytes32', name: 's', type: 'bytes32' }
-        ],
-        name: 'permit',
+        name: "pause",
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
-      },
-      { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-      {
-        inputs: [],
-        name: 'symbol',
-        outputs: [{ internalType: 'string', name: '', type: 'string' }],
-        stateMutability: 'view',
-        type: 'function'
+        stateMutability: "nonpayable",
+        type: "function",
       },
       {
         inputs: [],
-        name: 'totalSupply',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-        stateMutability: 'view',
-        type: 'function'
+        name: "paused",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "view",
+        type: "function",
       },
       {
         inputs: [
-          { internalType: 'address', name: 'to', type: 'address' },
-          { internalType: 'uint256', name: 'value', type: 'uint256' }
+          { internalType: "address", name: "owner", type: "address" },
+          { internalType: "address", name: "spender", type: "address" },
+          { internalType: "uint256", name: "value", type: "uint256" },
+          { internalType: "uint256", name: "deadline", type: "uint256" },
+          { internalType: "uint8", name: "v", type: "uint8" },
+          { internalType: "bytes32", name: "r", type: "bytes32" },
+          { internalType: "bytes32", name: "s", type: "bytes32" },
         ],
-        name: 'transfer',
-        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-        stateMutability: 'nonpayable',
-        type: 'function'
-      },
-      {
-        inputs: [
-          { internalType: 'address', name: 'from', type: 'address' },
-          { internalType: 'address', name: 'to', type: 'address' },
-          { internalType: 'uint256', name: 'value', type: 'uint256' }
-        ],
-        name: 'transferFrom',
-        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-        stateMutability: 'nonpayable',
-        type: 'function'
-      },
-      {
-        inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
-        name: 'transferOwnership',
+        name: "permit",
         outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
+        stateMutability: "nonpayable",
+        type: "function",
       },
-      { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' }
-    ]
+      {
+        inputs: [],
+        name: "renounceOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "symbol",
+        outputs: [{ internalType: "string", name: "", type: "string" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "totalSupply",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address", name: "to", type: "address" },
+          { internalType: "uint256", name: "value", type: "uint256" },
+        ],
+        name: "transfer",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address", name: "from", type: "address" },
+          { internalType: "address", name: "to", type: "address" },
+          { internalType: "uint256", name: "value", type: "uint256" },
+        ],
+        name: "transferFrom",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address", name: "newOwner", type: "address" },
+        ],
+        name: "transferOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "unpause",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ];
     ```
 
 5.  **Creamos un fichero `index.js` para exportar directamente los ABIs:**
 
     ```js
-    export * from './blockmakerTokenABI'
+    export * from "./blockmakerTokenABI";
     ```
 
 ### Componente Token Balance
@@ -863,8 +996,8 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
 - Importamos el componente en nuestra página `Home` para ver que funciona correctamente.
 
   ```jsx
-  import { useAccount, useBalance } from 'wagmi'
-  import { ErrorInfo } from './ui'
+  import { useAccount, useBalance } from "wagmi";
+  import { ErrorInfo } from "./ui";
 
   // Componente Skeleton para mostrar mientras se carga el balance
   function TokenBalanceSkeleton() {
@@ -872,38 +1005,42 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
       <div className="w-48 sm:w-60 bg-white border shadow p-2.5 rounded-md">
         <div className="h-5 bg-gray-300 rounded animate-pulse" />
       </div>
-    )
+    );
   }
 
   export default function TokenBalance() {
-    const { address, isConnected } = useAccount()
+    const { address, isConnected } = useAccount();
 
     const { data, isLoading } = useBalance({
       address,
       token: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
       // Ponemos watch para que se actualice el balance automáticamente
-      watch: true
-    })
+      watch: true,
+    });
 
     // Ponemos optional chaining con "?" para evitar errores si aún no tenemos el token en nuestra wallet
-    const tokenBalance = Number(data?.formatted)
+    const tokenBalance = Number(data?.formatted);
 
     return isLoading ? (
       <TokenBalanceSkeleton />
     ) : (
       <div className="bg-white border shadow w-fit p-1 gap-2 rounded-md flex items-center text-xs md:text-base">
-        <p className="bg-zinc-700 text-white p-2 sm:py-1 rounded-l-md">Token Balance:</p>
+        <p className="bg-zinc-700 text-white p-2 sm:py-1 rounded-l-md">
+          Token Balance:
+        </p>
         {/* Comprobamos si está conectado para mostrar balance, si no, mostramos el componente ErrorInfo con mensaje */}
         {isConnected ? (
           <p className="p-2 sm:py-1">
             {/* Si el número no es entero, fijamos los decimales en 3 */}
-            {Number.isInteger(tokenBalance) ? tokenBalance : tokenBalance.toFixed(3)} {data?.symbol}
+            {Number.isInteger(tokenBalance)
+              ? tokenBalance
+              : tokenBalance.toFixed(3)} {data?.symbol}
           </p>
         ) : (
           <ErrorInfo message="Conecta tu wallet para ver tu balance de BM" />
         )}
       </div>
-    )
+    );
   }
   ```
 
@@ -916,9 +1053,9 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
 - Utilizamos el hook [useContractRead](https://wagmi.sh/react/hooks/useContractRead) para leer el método owner del contrato.
 
   ```jsx
-  import { useContractRead } from 'wagmi'
-  import { blockmakerTokenABI } from '../contracts/ABIs'
-  import { Title } from './ui'
+  import { useContractRead } from "wagmi";
+  import { blockmakerTokenABI } from "../contracts/ABIs";
+  import { Title } from "./ui";
 
   function OwnerSkeleton() {
     return (
@@ -926,7 +1063,7 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
         <div className="h-5 bg-gray-300 rounded animate-pulse w-20" />
         <div className="h-7 bg-gray-300 rounded animate-pulse" />
       </div>
-    )
+    );
   }
 
   export default function Owner() {
@@ -935,17 +1072,19 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
       // Indicamos el ABI del contrato
       abi: blockmakerTokenABI,
       // Indicamos el método del contrato que queremos usar
-      functionName: 'owner'
-    })
+      functionName: "owner",
+    });
 
     return isLoading ? (
       <OwnerSkeleton />
     ) : (
       <section className="flex flex-col p-4 bg-white border shadow rounded-lg w-[360px] sm:w-[469px]">
         <Title>Owner</Title>
-        <p className="text-zinc-600 text-xs sm:text-sm bg-gray-100 p-2 rounded-md">{data}</p>
+        <p className="text-zinc-600 text-xs sm:text-sm bg-gray-100 p-2 rounded-md">
+          {data}
+        </p>
       </section>
-    )
+    );
   }
   ```
 
@@ -958,10 +1097,10 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
 - Importamos la función formatEther para formatear el valor que nos devuelve el método a ether.
 
   ```jsx
-  import { formatEther } from 'viem/utils'
-  import { useContractRead } from 'wagmi'
-  import { blockmakerTokenABI } from '../contracts/ABIs'
-  import { Title } from './ui'
+  import { formatEther } from "viem/utils";
+  import { useContractRead } from "wagmi";
+  import { blockmakerTokenABI } from "../contracts/ABIs";
+  import { Title } from "./ui";
 
   function TotalSupplySkeleton() {
     return (
@@ -969,25 +1108,27 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
         <div className="h-5 bg-gray-300 rounded animate-pulse w-32" />
         <div className="h-7 bg-gray-300 rounded animate-pulse" />
       </div>
-    )
+    );
   }
 
   export default function TotalSupply() {
     const { data, isLoading } = useContractRead({
       address: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
       abi: blockmakerTokenABI,
-      functionName: 'totalSupply',
-      watch: true
-    })
+      functionName: "totalSupply",
+      watch: true,
+    });
 
     return isLoading ? (
       <TotalSupplySkeleton />
     ) : (
       <section className="flex flex-col p-4 bg-white border shadow rounded-lg w-[360px] sm:w-[469px]">
         <Title>Total Supply</Title>
-        <p className="text-zinc-600 text-xs sm:text-sm bg-gray-100 p-2 rounded-md ">{formatEther(Number(data))}</p>
+        <p className="text-zinc-600 text-xs sm:text-sm bg-gray-100 p-2 rounded-md ">
+          {formatEther(Number(data))}
+        </p>
       </section>
-    )
+    );
   }
   ```
 
@@ -998,7 +1139,7 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
 - Para leer la información del token usaremos el hook de wagmi [useToken](https://wagmi.sh/react/hooks/useToken).
 
   ```jsx
-  import PropTypes from 'prop-types'
+  import PropTypes from "prop-types";
 
   export default function TokenInfoItem({ label, value }) {
     return (
@@ -1006,19 +1147,19 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
         <span className="text-gray-700 font-semibold">{label}:</span>
         <p className="text-xs sm:text-sm">{value}</p>
       </li>
-    )
+    );
   }
 
   TokenInfoItem.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  }
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  };
   ```
 
   ```jsx
-  import { useToken } from 'wagmi'
-  import { ErrorInfo, Title } from './ui'
-  import TokenInfoItem from './TokenInfoItem'
+  import { useToken } from "wagmi";
+  import { ErrorInfo, Title } from "./ui";
+  import TokenInfoItem from "./TokenInfoItem";
 
   function TokenInfoSkeleton() {
     return (
@@ -1032,16 +1173,16 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
           <li className="h-14 sm:h-9 bg-gray-300 rounded" />
         </ul>
       </section>
-    )
+    );
   }
 
   export default function TokenInfo() {
     const { data, isLoading, isError } = useToken({
       address: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
-      watch: true
-    })
+      watch: true,
+    });
 
-    if (isLoading) return <TokenInfoSkeleton />
+    if (isLoading) return <TokenInfoSkeleton />;
 
     return (
       <section className="p-4 bg-white border shadow w-fit rounded-lg text-sm">
@@ -1057,7 +1198,7 @@ En esta sección crearemos los siguientes componentes con sus componentes auxili
           </ul>
         )}
       </section>
-    )
+    );
   }
   ```
 
@@ -1072,52 +1213,58 @@ Este componente se crea con el propósito de permitir la transferencia de tokens
 3. `useWaitForTransaction`: Finalmente, se utiliza el hook [useWaitForTransaction](https://wagmi.sh/react/hooks/useWaitForTransaction) para esperar la confirmación de la transacción en la cadena de bloques antes de proceder con otras acciones.
 
    ```jsx
-   import { useEffect, useState } from 'react'
-   import { toast } from 'react-hot-toast'
-   import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-   import { blockmakerTokenABI } from '../contracts/ABIs'
-   import { Button, TextInput, Title } from './ui'
+   import { useEffect, useState } from "react";
+   import { toast } from "react-hot-toast";
+   import {
+     useContractWrite,
+     usePrepareContractWrite,
+     useWaitForTransaction,
+   } from "wagmi";
+   import { blockmakerTokenABI } from "../contracts/ABIs";
+   import { Button, TextInput, Title } from "./ui";
 
    export default function TransferTokenForm() {
-     const [to, setTo] = useState('')
-     const [amount, setAmount] = useState('')
+     const [to, setTo] = useState("");
+     const [amount, setAmount] = useState("");
 
      const { config } = usePrepareContractWrite({
        address: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
        abi: blockmakerTokenABI,
-       functionName: 'transfer',
+       functionName: "transfer",
        enabled: to && amount > 0,
-       args: [to, BigInt(amount * 10 ** 18)]
-     })
+       args: [to, BigInt(amount * 10 ** 18)],
+     });
 
-     const { data: writeData, write } = useContractWrite(config)
+     const { data: writeData, write } = useContractWrite(config);
 
      const {
        isLoading: isTransactionLoading,
        isSuccess: isTransactionSuccess,
-       isError: isTransactionError
+       isError: isTransactionError,
      } = useWaitForTransaction({
-       hash: writeData?.hash
-     })
+       hash: writeData?.hash,
+     });
 
      const handleToInputChange = (e) => {
-       setTo(e.target.value)
-     }
+       setTo(e.target.value);
+     };
 
      const handleAmountInputChange = (e) => {
-       setAmount(e.target.value)
-     }
+       setAmount(e.target.value);
+     };
 
      useEffect(() => {
        if (isTransactionSuccess) {
-         toast.success('Se han transferido los tokens con éxito.')
-         setTo('')
-         setAmount('')
+         toast.success("Se han transferido los tokens con éxito.");
+         setTo("");
+         setAmount("");
        }
        if (isTransactionError) {
-         toast.error('No se ha podido realizar la transacción. Prueba de nuevo más tarde.')
+         toast.error(
+           "No se ha podido realizar la transacción. Prueba de nuevo más tarde."
+         );
        }
-     }, [isTransactionSuccess, isTransactionError])
+     }, [isTransactionSuccess, isTransactionError]);
 
      return (
        <section className="p-4 bg-white border shadow rounded-lg text-sm w-[360px] sm:w-[469px]">
@@ -1144,11 +1291,13 @@ Este componente se crea con el propósito de permitir la transferencia de tokens
              isLoading={isTransactionLoading}
              onClick={() => write?.()}
            >
-             {isTransactionLoading ? 'Transfiriendo BM Tokens...' : 'Transferir BM Tokens'}
+             {isTransactionLoading
+               ? "Transfiriendo BM Tokens..."
+               : "Transferir BM Tokens"}
            </Button>
          </form>
        </section>
-     )
+     );
    }
    ```
 
@@ -1163,57 +1312,65 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
 3. `useWaitForTransaction`: Finalmente, se utiliza el hook [useWaitForTransaction](https://wagmi.sh/react/hooks/useWaitForTransaction) para esperar la confirmación de la transacción en la cadena de bloques antes de proceder con otras acciones.
 
    ```jsx
-   import { useEffect, useState } from 'react'
-   import { toast } from 'react-hot-toast'
-   import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi'
-   import { blockmakerTokenABI } from '../contracts/ABIs'
-   import { Button, TextInput, Title } from './ui'
+   import { useEffect, useState } from "react";
+   import { toast } from "react-hot-toast";
+   import {
+     useAccount,
+     useContractRead,
+     useContractWrite,
+     usePrepareContractWrite,
+     useWaitForTransaction,
+   } from "wagmi";
+   import { blockmakerTokenABI } from "../contracts/ABIs";
+   import { Button, TextInput, Title } from "./ui";
 
    export default function BurnTokensForm() {
-     const [amount, setAmount] = useState('')
+     const [amount, setAmount] = useState("");
 
-     const { address } = useAccount()
+     const { address } = useAccount();
 
      const { data } = useContractRead({
        address: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
        abi: blockmakerTokenABI,
-       functionName: 'owner'
-     })
+       functionName: "owner",
+     });
 
      // Comprobamos si la cuenta que está conectada es la misma que la del owner
-     const isOwner = address === data
+     const isOwner = address === data;
 
      const { config } = usePrepareContractWrite({
        address: import.meta.env.VITE_TOKEN_CONTRACT_ADDRESS,
        abi: blockmakerTokenABI,
-       functionName: 'burn',
+       functionName: "burn",
        enabled: amount > 0,
-       args: [BigInt(amount * 10 ** 18)]
-     })
+       args: [BigInt(amount * 10 ** 18)],
+     });
 
-     const { data: writeData, write } = useContractWrite(config)
+     const { data: writeData, write } = useContractWrite(config);
 
      const {
        isLoading: isTransactionLoading,
        isSuccess: isTransactionSuccess,
-       isError: isTransactionError
+       isError: isTransactionError,
      } = useWaitForTransaction({
-       hash: writeData?.hash
-     })
+       hash: writeData?.hash,
+     });
 
      const handleAmountInputChange = (e) => {
-       setAmount(e.target.value)
-     }
+       setAmount(e.target.value);
+     };
 
      useEffect(() => {
        if (isTransactionSuccess) {
-         toast.success('Quema de tokens realizada con éxito!🔥')
-         setAmount('')
+         toast.success("Quema de tokens realizada con éxito!🔥");
+         setAmount("");
        }
        if (isTransactionError) {
-         toast.error('No se ha podido realizar la quema de tokens. Prueba de nuevo más tarde.')
+         toast.error(
+           "No se ha podido realizar la quema de tokens. Prueba de nuevo más tarde."
+         );
        }
-     }, [isTransactionSuccess, isTransactionError])
+     }, [isTransactionSuccess, isTransactionError]);
 
      return (
        <section className="p-4 bg-white border shadow rounded-lg text-sm w-[360px] sm:w-[469px]">
@@ -1236,13 +1393,13 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
            >
              {isOwner
                ? isTransactionLoading
-                 ? 'Burning BM Tokens...'
-                 : 'Burn BM Tokens'
-               : 'Only Owner Can Burn Tokens'}
+                 ? "Burning BM Tokens..."
+                 : "Burn BM Tokens"
+               : "Only Owner Can Burn Tokens"}
            </Button>
          </form>
        </section>
-     )
+     );
    }
    ```
 
@@ -1251,17 +1408,17 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
 - Creamos un índice para exportar todos los componentes de la carpeta components
 
   ```jsx
-  export { default as BurnTokensForm } from './BurnTokensForm'
-  export { default as Footer } from './Footer'
-  export { default as Header } from './Header'
-  export { default as MintTokensForm } from './MintTokensForm'
-  export { default as Owner } from './Owner'
-  export { default as TokenBalance } from './TokenBalance'
-  export { default as TokenInfo } from './TokenInfo'
-  export { default as TokenInfoItem } from './TokenInfoItem'
-  export { default as TokenInfoSkeleton } from './TokenInfoSkeleton'
-  export { default as TotalSupply } from './TotalSupply'
-  export { default as TransferTokensForm } from './TransferTokensForm'
+  export { default as BurnTokensForm } from "./BurnTokensForm";
+  export { default as Footer } from "./Footer";
+  export { default as Header } from "./Header";
+  export { default as MintTokensForm } from "./MintTokensForm";
+  export { default as Owner } from "./Owner";
+  export { default as TokenBalance } from "./TokenBalance";
+  export { default as TokenInfo } from "./TokenInfo";
+  export { default as TokenInfoItem } from "./TokenInfoItem";
+  export { default as TokenInfoSkeleton } from "./TokenInfoSkeleton";
+  export { default as TotalSupply } from "./TotalSupply";
+  export { default as TransferTokensForm } from "./TransferTokensForm";
   ```
 
 # Página Principal
@@ -1269,8 +1426,8 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
 - Una vez ya tenemos todos nuestros componentes necesarios podemos terminar de diseñar nuestra página principal en el componente Home.
 
   ```jsx
-  import { ConnectKitButton } from 'connectkit'
-  import { useAccount } from 'wagmi'
+  import { ConnectKitButton } from "connectkit";
+  import { useAccount } from "wagmi";
   import {
     BurnTokensForm,
     MintTokensForm,
@@ -1278,11 +1435,11 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
     TokenBalance,
     TokenInfo,
     TotalSupply,
-    TransferTokensForm
-  } from '../components'
+    TransferTokensForm,
+  } from "../components";
 
   export default function Home() {
-    const { isConnected } = useAccount()
+    const { isConnected } = useAccount();
 
     return (
       <div className="flex flex-col self-center sm:grid place-items-center px-3 py-16 md:px-5 gap-12">
@@ -1308,17 +1465,21 @@ Este componente se crea con el propósito de permitir la quema de tokens para el
         ) : (
           <>
             <p className="text-gray-500 md:text-xl text-center ">
-              Un token revolucionario en la blockchain, diseñado para empoderar a los usuarios y desarrolladores.
+              Un token revolucionario en la blockchain, diseñado para empoderar
+              a los usuarios y desarrolladores.
               <br />
-              Blockmaker ERC20 ofrece transacciones rápidas, bajas tarifas y una plataforma segura.
+              Blockmaker ERC20 ofrece transacciones rápidas, bajas tarifas y una
+              plataforma segura.
               <br /> Ideal para proyectos de DeFi, juegos en blockchain y mucho más.
             </p>
-            <p className="text-xl sm:text-2xl">🔒 Conecta tu wallet para comenzar.</p>
+            <p className="text-xl sm:text-2xl">
+              🔒 Conecta tu wallet para comenzar.
+            </p>
             <ConnectKitButton />
           </>
         )}
       </div>
-    )
+    );
   }
   ```
 
@@ -1362,3 +1523,4 @@ Para desplegar un proyecto de React en Vercel, sigue estos pasos:
    - Vercel detectará automáticamente los cambios y desplegará la nueva versión de tu proyecto.
 
 - URL de la Aplicación: [https://erc20-web3-dapp.vercel.app/](https://erc20-web3-dapp.vercel.app/)
+npm
