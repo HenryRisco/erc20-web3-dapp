@@ -1,1 +1,1 @@
-export * from './blockmakerTokenABI';
+export * from "./blockmakerTokenABI";
